@@ -9,11 +9,11 @@ A way to achieve localization algorithm by machine learning.
 
 傳統方法是通過至少三根天線通過已知天線位置來推算出未知標籤的位置，此類方法需要先通過RSSI 值和人爲設定環境因子來換算出到參考天線的距離，然後通過極大似然法來計算天線所在的座標。
 
-![圖示極大似然](https://github.com/axionl/RFIDindoorpositioning/blob/master/fig/%E6%A5%B5%E5%A4%A7%E4%BC%BC%E7%84%B6%E6%B3%95.svg)
+![圖示極大似然](https://cdn.rawgit.com/axionl/RFIDindoorpositioning/a40ee36f/fig/%E6%A5%B5%E5%A4%A7%E4%BC%BC%E7%84%B6%E6%B3%95.svg)
 
 還有一種基於傳統方法的改進，就是指紋標籤法。同樣至少使用三根天線，預先布放參考標籤，測得參考標籤的位置和對應的RSSI 值。然後在實際使用中撤走參考標籤，通過將測試標籤的RSSI 值與之前參考標籤的值進行比對得出測試標籤的位置或者是到天線的距離。
 
-![圖示指紋標籤法](https://github.com/axionl/RFIDindoorpositioning/blob/master/fig/%E6%8C%87%E7%B4%8B%E6%A8%99%E7%B1%A4%E6%B3%95.svg)
+![圖示指紋標籤法](https://cdn.rawgit.com/axionl/RFIDindoorpositioning/a40ee36f/fig/%E6%8C%87%E7%B4%8B%E6%A8%99%E7%B1%A4%E6%B3%95.svg)
 
 ## 思路
 主要分爲兩種，一種是有三個天線及以上的，另外一種是一到兩個天線外加旋轉平臺的。
@@ -38,6 +38,6 @@ A way to achieve localization algorithm by machine learning.
 ### 一天線及兩天線
 此處考慮射頻天線指向性不夠精確故不推薦一天線的方案
 
-![圖示雙天線法](https://github.com/axionl/RFIDindoorpositioning/blob/master/fig/%E6%85%A3%E6%80%A7%E5%88%A4%E5%AE%9A%E6%B3%95.svg)
+![圖示雙天線法](https://cdn.rawgit.com/axionl/RFIDindoorpositioning/a40ee36f/fig/%E6%85%A3%E6%80%A7%E5%88%A4%E5%AE%9A%E6%B3%95.svg)
 
 E、F爲機器學習可以判定出的兩個對稱點，在測試的時候爲其中一個天線添加一個轉軸，由步進電機控制左右擺動，根據轉動時同一個標籤ID 接收強度的不同，可以粗略判斷左交點還是右交點，再利用慣性算法來定位。同樣通過機器學習可以得到標籤的座標。
