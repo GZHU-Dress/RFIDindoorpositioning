@@ -12,6 +12,7 @@ A way to achieve localization algorithm by machine learning.
 ![圖示極大似然](https://github.com/axionl/RFIDindoorpositioning/blob/master/fig/%E6%A5%B5%E5%A4%A7%E4%BC%BC%E7%84%B6%E6%B3%95.svg)
 
 還有一種基於傳統方法的改進，就是指紋標籤法。同樣至少使用三根天線，預先布放參考標籤，測得參考標籤的位置和對應的RSSI 值。然後在實際使用中撤走參考標籤，通過將測試標籤的RSSI 值與之前參考標籤的值進行比對得出測試標籤的位置或者是到天線的距離。
+
 ![圖示指紋標籤法](https://github.com/axionl/RFIDindoorpositioning/blob/master/fig/%E6%8C%87%E7%B4%8B%E6%A8%99%E7%B1%A4%E6%B3%95.svg)
 
 ## 思路
