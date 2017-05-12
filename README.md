@@ -38,6 +38,6 @@ A way to achieve localization algorithm by machine learning.
 ### 一天線及兩天線
 此處考慮射頻天線指向性不夠精確故不推薦一天線的方案
 
-![圖示雙天線法](https://github.com/axionl/RFIDindoorpositioning/blob/master/fig/%E6%85%A3%E6%80%A7%E5%88%A4%E5%AE%9A%E6%B3%95.svg）
+![圖示雙天線法](https://github.com/axionl/RFIDindoorpositioning/blob/master/fig/%E6%85%A3%E6%80%A7%E5%88%A4%E5%AE%9A%E6%B3%95.svg)
 
 E、F爲機器學習可以判定出的兩個對稱點，在測試的時候爲其中一個天線添加一個轉軸，由步進電機控制左右擺動，根據轉動時同一個標籤ID 接收強度的不同，可以粗略判斷左交點還是右交點，再利用慣性算法來定位。同樣通過機器學習可以得到標籤的座標。
