@@ -15,6 +15,7 @@ import java.net.Socket;
  * Created by zyvis on 2017/3/5.
  */
 public class Run implements Runnable {
+
     ImageManager im =new ImageManager();
     SocketReceiver socketReceiver;
     CommandCoder commandCoder;

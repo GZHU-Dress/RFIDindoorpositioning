@@ -16,7 +16,7 @@ import java.util.LinkedList;
  * Created by zyvis on 2016/11/28.
  */
 public class BasePanel extends JPanel {
-    //private Waypoint mouse,
+
     protected BufferedImage baseImage=null;
     protected LinkedList<Actor> objlist =new LinkedList<>();
     protected Iterator<Actor> actorIterator;
@@ -53,6 +53,9 @@ public class BasePanel extends JPanel {
         objlist.add(obj);
         defaultLog.report("actor obj added successfully");
         this.repaint();
+    }
+    public void clear(){
+        this.paint(baseImage.getGraphics());
     }
 }
 
