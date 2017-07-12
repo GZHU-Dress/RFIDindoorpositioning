@@ -25,10 +25,10 @@ public class CommandCoder {
     }
     public void run(String command){
         defaultLog.report("cmd need to run : "+command);
-        if(command==END){
+        if(command.equals(END)){
             defaultLog.report("cmd run :end");
             return;
-        }else if(command==CLEAR){
+        }else if(command.equals(CLEAR)){
             basePanel.clear();
             defaultLog.report("cmd run : "+CLEAR);
             return;
@@ -51,7 +51,7 @@ public class CommandCoder {
             basePanel.add(new Actor(new Waypoint(Integer.parseInt(waypoint[0]),Integer.parseInt(waypoint[1]))));
             defaultLog.report("cmd run : "+SETACTOR);
             try {
-                Thread.sleep(1000);
+                Thread.sleep(100);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

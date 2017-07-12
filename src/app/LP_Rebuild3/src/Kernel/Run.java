@@ -25,6 +25,7 @@ public class Run implements Runnable {
             im.importImage("BaseImage", "src/ImageFolder/base.jpg");
             im.importImage("TagImage", "src/ImageFolder/tag.png");
             im.importImage("ActorImage", "src/ImageFolder/actor.png");
+            im.importImage("floor","src/ImageFolder/null.png");
             Actor.setDefaultImage(new DrawobjImage(im.fecth("ActorImage")));
             Tag.setDefaultImage(new DrawobjImage(im.fecth("TagImage")));
             defaultLog.report("Import image successfully");
@@ -33,6 +34,7 @@ public class Run implements Runnable {
         }
         MainWindow mainWindow=new MainWindow();
         mainWindow.getLocalBasePanel().setBaseImage(im.fecth("BaseImage"));
+        mainWindow.getLocalBasePanel().setImageFloor(im.fecth("floor"));
         defaultLog.report("Panel ready ");
         try {
             socketReceiver=new SocketReceiver("119.29.245.150",3345);

@@ -18,8 +18,13 @@ import java.util.LinkedList;
 public class BasePanel extends JPanel {
 
     protected BufferedImage baseImage=null;
+
+    public void setImageFloor(BufferedImage imageFloor) {
+        this.imageFloor = imageFloor;
+    }
+
+    protected BufferedImage imageFloor=null;
     protected LinkedList<Actor> objlist =new LinkedList<>();
-    protected Iterator<Actor> actorIterator;
     public  BufferedImage getBaseImage() {
        return baseImage;
     }
@@ -29,33 +34,28 @@ public class BasePanel extends JPanel {
     }
     protected Framesize framesize;
     public BasePanel() {
-        if(baseImage!=null)framesize=new Framesize(baseImage.getWidth(),baseImage.getHeight());
+        if(baseImage!=null)
+            framesize=new Framesize(baseImage.getWidth(),baseImage.getHeight());
     }
 
     @Override
     public void paint(Graphics g) {
         super.paint(g);
-        if(framesize==null)framesize=new Framesize(baseImage.getWidth(),baseImage.getHeight());
-        g.drawImage(baseImage,0,0,null);
-        Actor tmp;
-        actorIterator=objlist.iterator();
-        while(actorIterator.hasNext()) {
-            tmp = actorIterator.next();
-            defaultLog.report("draw obj");
-            g.drawImage(tmp.getDrawobjImage().getImage(),
-                    tmp.getWaypoint().getMidX()-tmp.getFramesize().getWidth()/2,
-                    tmp.getWaypoint().getMidY()-tmp.getFramesize().getHeight()/2,
-                    null);
-        }
-
+        //g.drawImage(imageFloor,0,0,null);
     }
-    public void add(Actor obj){
-        objlist.add(obj);
+    public void add(Actor tmp){
+        objlist.add(tmp);
         defaultLog.report("actor obj added successfully");
-        this.repaint();
+        Graphics g = null;
+        defaultLog.report("draw obj");
+        g.drawImage(tmp.getDrawobjImage().getImage(),
+                tmp.getWaypoint().getMidX()-tmp.getFramesize().getWidth()/2,
+                tmp.getWaypoint().getMidY()-tmp.getFramesize().getHeight()/2,
+                null);
+        this.update(g);
     }
     public void clear(){
-        this.paint(baseImage.getGraphics());
+        paint(baseImage.getGraphics());
     }
 }
 

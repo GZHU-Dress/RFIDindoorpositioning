@@ -16,6 +16,6 @@ setactor 322,222
 setactor 324,224
 setactor 326,225
 setactor 328,227
-wait 20000
+wait 3000
 clear
 end

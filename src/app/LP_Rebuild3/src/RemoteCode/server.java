@@ -30,7 +30,7 @@ public class server {
                 dataSenderSocket=lpDataSender.accept();
                 System.out.println("data sender connect !");
             }
-            if(clientSocket==null||dataSenderSocket==null)continue;
+            else if(clientSocket==null||dataSenderSocket==null)continue;
             System.out.println("client && data sender is ready");
             dataScanner = new Scanner(dataSenderSocket.getInputStream());
             clientPrinter = new PrintStream(clientSocket.getOutputStream());
