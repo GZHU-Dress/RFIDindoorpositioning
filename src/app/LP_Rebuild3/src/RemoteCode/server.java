@@ -13,40 +13,100 @@ import java.util.Scanner;
  */
 public class server {
     public static void main(String[] args) throws IOException {
-        ServerSocket lpClient=new ServerSocket(3345);//LP Client;
-        ServerSocket lpDataSender=new ServerSocket(3346);
+        DataReceiverLinstener dataReceiverLinstener=new DataReceiverLinstener();
+        DataSenderLinstener dataSenderLinstener=new DataSenderLinstener();
 
-        PrintStream clientPrinter;
-        Scanner dataScanner;
-        Socket clientSocket=null;
-        Socket dataSenderSocket=null;
+
+
         while(true){
             System.out.println("wait for connection");
-            if(clientSocket==null){
-                clientSocket=lpClient.accept();
-                System.out.println("client connect !");
-            }
-            if(dataSenderSocket==null){
-                dataSenderSocket=lpDataSender.accept();
-                System.out.println("data sender connect !");
-            }
-            else if(clientSocket==null||dataSenderSocket==null)continue;
+            dataReceiverLinstener.start();
+            dataSenderLinstener.start();
+
+            if(!(dataReceiverLinstener.isLink()&&dataSenderLinstener.isLink()))continue;
+            new Send(new PrintStream(dataReceiverLinstener.clientSocket.getOutputStream()),new Scanner(dataSenderLinstener.dataSenderSocket.getInputStream())).start();
+
+        }
+
+    }
+    private static class Send extends Thread{
+        PrintStream clientPrinter;
+        Scanner dataScanner;
+
+        public Send(PrintStream clientPrinter, Scanner dataScanner) {
+            this.clientPrinter = clientPrinter;
+            this.dataScanner = dataScanner;
+        }
+
+        @Override
+        public synchronized void start() {
+            super.start();
             System.out.println("client && data sender is ready");
-            dataScanner = new Scanner(dataSenderSocket.getInputStream());
-            clientPrinter = new PrintStream(clientSocket.getOutputStream());
             for(;;) {
                 try{
                     clientPrinter.println(dataScanner.nextLine());
                     System.out.println("double send");
                 } catch (NoSuchElementException e){
                     System.out.println("DATA END");
-                    dataSenderSocket=null;
+                    //dataSenderLinstener.interruptLink();
                     System.out.println("data sender out of connection !");
                     break;
                 }
 
             }
         }
+    }
+    private static class DataReceiverLinstener extends Thread{
+        ServerSocket lpClient=new ServerSocket(3345);//LP Client;
+        Socket clientSocket=null;
 
+        private DataReceiverLinstener() throws IOException {
+        }
+
+        @Override
+        public synchronized void start() {
+            super.start();
+            for(;;) {
+                if (clientSocket == null) {
+                    try {
+                        clientSocket = lpClient.accept();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    System.out.println("client connect !");
+                }
+            }
+        }
+        boolean isLink(){
+            return clientSocket!=null;
+        }
+        void interruptLink(){
+            clientSocket=null;
+        }
+    }
+    private static class DataSenderLinstener extends Thread{
+        ServerSocket lpDataSender=new ServerSocket(3346);
+        Socket dataSenderSocket=null;
+        private DataSenderLinstener() throws IOException {
+        }
+
+        @Override
+        public synchronized void start() {
+            super.start();
+            if(dataSenderSocket==null){
+                try {
+                    dataSenderSocket=lpDataSender.accept();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                System.out.println("data sender connect !");
+            }
+        }
+        void interruptLink(){
+            dataSenderSocket=null;
+        }
+        boolean isLink(){
+            return dataSenderSocket!=null;
+        }
     }
 }
